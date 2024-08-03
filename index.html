@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Дни до дня рождения</h1>
+    <label for="birthdayDate">День рождения:</label>
+    <input type="datetime-local" id="birthdayDate" />
+    <button onclick="calculateDaysLeft()">Посчитать</button>
+    <p id="result"></p>
+    <script>
+      const birthdayDate = document.querySelector("#birthdayDate");
+      const resultInput = document.querySelector("#result");
+      function calculateDaysLeft() {
+        const birthdayDateStr = birthdayDate.value;
+
+        function check() {
+          let result = document.querySelector("#birthdayDate").value;
+          if (result == "") {
+            resultInput.textContent = "Ваше поле не заполнено";
+          }
+        }
+
+        const birthdayTimeStamp = Date.parse(birthdayDateStr);
+
+        const currentTimeStamp = Date.now();
+
+        const timeDifference = birthdayTimeStamp - currentTimeStamp;
+
+        const dayLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+
+        function dates(dayLeft) {
+          if (dayLeft > 10 && [11, 12, 13, 14].includes(dayLeft % 100))
+            return "дней";
+          last_num = dayLeft % 10;
+          if (last_num == 1) return "день";
+          if ([2, 3, 4].includes(last_num)) return "дня";
+          if ([5, 6, 7, 8, 9, 0].includes(last_num)) return "дней";
+        }
+
+        let dateName = dates(dayLeft);
+        resultInput.textContent = `До дня рождения осталось ${dayLeft}  ${dateName}`;
+
+        check()();
+      }
+    </script>
+  </body>
+</html>
